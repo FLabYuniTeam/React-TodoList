@@ -40,6 +40,14 @@ function App() {
     });
   };
 
+  const handleRemove = (id: number) => {
+    const nextState = tasks.filter((task) => task.id !== id);
+    setState({
+      ...state,
+      tasks: nextState
+    });
+  };
+
   return (
     <div className='App'>
       <h1>To-do</h1>
@@ -48,7 +56,7 @@ function App() {
         onSubmit={handleSubmit}
         onChange={handleChange}
       />
-      <Todolist tasks={tasks} />
+      <Todolist tasks={tasks} onRemove={handleRemove} />
     </div>
   );
 }

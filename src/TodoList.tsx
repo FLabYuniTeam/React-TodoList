@@ -1,11 +1,25 @@
 import React from 'react';
 import { task } from './App';
 
-const Todolist = ({ tasks }: { tasks: task[] }) => {
+const Todolist = ({
+  tasks,
+  onRemove
+}: {
+  tasks: task[];
+  onRemove: (id: number) => void;
+}) => {
   return (
     <ul>
       {tasks.map((task) => {
-        return <li key={task.id}>{task.text}</li>;
+        return (
+          <div key={task.id}>
+            <li>
+              {task.text}
+              <button>수정</button>
+              <button onClick={() => onRemove(task.id)}>삭제</button>
+            </li>
+          </div>
+        );
       })}
     </ul>
   );
