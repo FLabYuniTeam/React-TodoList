@@ -1,9 +1,20 @@
-import React from "react";
+import React from 'react';
 
-const TodoInput = () => {
+const TodoInput = ({
+  onSubmit,
+  onChange,
+  value
+}: {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+}) => {
   return (
     <div>
-      <h1>TodoInput</h1>
+      <form onSubmit={onSubmit}>
+        <input type='text' value={value} onChange={onChange} />
+        <button>Add</button>
+      </form>
     </div>
   );
 };

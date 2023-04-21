@@ -1,10 +1,13 @@
-import React from "react";
+import React from 'react';
+import { task } from './App';
 
-const Todolist = () => {
+const Todolist = ({ tasks }: { tasks: task[] }) => {
   return (
-    <div>
-      <h1>Todolist</h1>
-    </div>
+    <ul>
+      {tasks.map((task) => {
+        return <li key={task.id}>{task.text}</li>;
+      })}
+    </ul>
   );
 };
 
