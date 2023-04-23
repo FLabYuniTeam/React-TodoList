@@ -13,6 +13,7 @@ interface Todo {
 export interface task {
   id: number;
   text: string;
+  isCompleted: boolean;
   isEdit: boolean;
 }
 
@@ -31,7 +32,10 @@ function App() {
     setState({
       ...state,
       newId: newId + 1,
-      tasks: [...tasks, { id: newId, text: taskText, isEdit: false }],
+      tasks: [
+        ...tasks,
+        { id: newId, text: taskText, isCompleted: false, isEdit: false }
+      ],
       taskText: ''
     });
   };
@@ -67,6 +71,19 @@ function App() {
     });
   };
 
+  const handleComplete = (id: number) => {
+    const nextState = tasks.map((task) => {
+      if (task.id === id) {
+        task.isCompleted = !task.isCompleted;
+      }
+      return task;
+    });
+    setState({
+      ...state,
+      tasks: nextState
+    });
+  };
+
   const handleRemove = (id: number) => {
     const nextState = tasks.filter((task) => task.id !== id);
     setState({
@@ -97,6 +114,7 @@ function App() {
         value={taskText}
       />
       <Todolist
+        onComplete={handleComplete}
         onRemove={handleRemove}
         onEdit={handleEdit}
         onChange={handleTextAreaChange}

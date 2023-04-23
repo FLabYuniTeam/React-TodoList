@@ -3,17 +3,19 @@ import { task } from './App';
 import ListItem from './ListItem';
 
 const Todolist = ({
-  tasks,
+  onComplete,
   onRemove,
   onEdit,
   onChange,
-  onEditComplete
+  onEditComplete,
+  tasks
 }: {
-  tasks: task[];
+  onComplete: (id: number) => void;
   onRemove: (id: number) => void;
   onEdit: (id: number) => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onEditComplete: (id: number) => void;
+  tasks: task[];
 }) => {
   return (
     <ul>
@@ -21,6 +23,7 @@ const Todolist = ({
         <ListItem
           task={task}
           key={task.id}
+          onComplete={onComplete}
           onRemove={onRemove}
           onEdit={onEdit}
           onChange={onChange}
@@ -32,5 +35,3 @@ const Todolist = ({
 };
 
 export default Todolist;
-
-//TODO: 완료기능 구현, 수정완료기능 구현
