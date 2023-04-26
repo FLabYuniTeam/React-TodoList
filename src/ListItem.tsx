@@ -1,5 +1,6 @@
 import React from 'react';
 import { task } from './App';
+import { eventHandlerFunction } from './App';
 
 const ListItem = ({
   onComplete,
@@ -9,11 +10,11 @@ const ListItem = ({
   onEditComplete,
   task
 }: {
-  onComplete: (id: number) => void;
-  onEdit: (id: number) => void;
-  onRemove: (id: number) => void;
+  onComplete: eventHandlerFunction;
+  onEdit: eventHandlerFunction;
+  onRemove: eventHandlerFunction;
+  onEditComplete: eventHandlerFunction;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onEditComplete: (id: number) => void;
   task: task;
 }) => {
   const CompleteButtonText = task.isCompleted ? '완료취소' : '완료';

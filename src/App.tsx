@@ -17,6 +17,8 @@ export interface task {
   isEdit: boolean;
 }
 
+export type eventHandlerFunction = (id: number) => void;
+
 function App() {
   const [state, setState] = useState<Todo>({
     newId: 1,
