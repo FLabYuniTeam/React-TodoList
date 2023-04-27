@@ -7,17 +7,17 @@ interface Todo {
   newId: number;
   taskText: string;
   editedTaskText: string;
-  tasks: task[];
+  tasks: Task[];
 }
 
-export interface task {
+export interface Task {
   id: number;
   text: string;
   isCompleted: boolean;
   isEdit: boolean;
 }
 
-export type eventHandlerFunction = (id: number) => void;
+export type TodoStateFunction = (id: number) => void;
 
 function App() {
   const [state, setState] = useState<Todo>({

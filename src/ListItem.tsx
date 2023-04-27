@@ -1,6 +1,6 @@
 import React from 'react';
-import { task } from './App';
-import { eventHandlerFunction } from './App';
+import { Task } from './App';
+import { TodoStateFunction } from './App';
 
 const ListItem = ({
   onComplete,
@@ -10,12 +10,12 @@ const ListItem = ({
   onEditComplete,
   task
 }: {
-  onComplete: eventHandlerFunction;
-  onEdit: eventHandlerFunction;
-  onRemove: eventHandlerFunction;
-  onEditComplete: eventHandlerFunction;
+  onComplete: TodoStateFunction;
+  onEdit: TodoStateFunction;
+  onRemove: TodoStateFunction;
+  onEditComplete: TodoStateFunction;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  task: task;
+  task: Task;
 }) => {
   const CompleteButtonText = task.isCompleted ? '완료취소' : '완료';
   const listItem = task.isEdit ? (
