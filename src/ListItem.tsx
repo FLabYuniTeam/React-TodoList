@@ -1,6 +1,6 @@
 import React from 'react';
 import { Task } from './App';
-import { TodoStateFunction } from './App';
+import { TodoStateHandler } from './App';
 
 const ListItem = ({
   onComplete,
@@ -10,10 +10,10 @@ const ListItem = ({
   onEditComplete,
   task
 }: {
-  onComplete: TodoStateFunction;
-  onEdit: TodoStateFunction;
-  onRemove: TodoStateFunction;
-  onEditComplete: TodoStateFunction;
+  onComplete: TodoStateHandler;
+  onEdit: TodoStateHandler;
+  onRemove: TodoStateHandler;
+  onEditComplete: TodoStateHandler;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   task: Task;
 }) => {

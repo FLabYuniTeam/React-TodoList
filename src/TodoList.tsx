@@ -1,7 +1,7 @@
 import React from 'react';
 import { Task } from './App';
 import ListItem from './ListItem';
-import { TodoStateFunction } from './App';
+import { TodoStateHandler } from './App';
 
 const Todolist = ({
   onComplete,
@@ -11,10 +11,10 @@ const Todolist = ({
   onEditComplete,
   tasks
 }: {
-  onComplete: TodoStateFunction;
-  onRemove: TodoStateFunction;
-  onEdit: TodoStateFunction;
-  onEditComplete: TodoStateFunction;
+  onComplete: TodoStateHandler;
+  onRemove: TodoStateHandler;
+  onEdit: TodoStateHandler;
+  onEditComplete: TodoStateHandler;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   tasks: Task[];
 }) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './css/App.css';
 import TodoInput from './TodoInput';
 import Todolist from './TodoList';
 
@@ -17,7 +17,7 @@ export interface Task {
   isEdit: boolean;
 }
 
-export type TodoStateFunction = (id: number) => void;
+export type TodoStateHandler = (id: number) => void;
 
 function App() {
   const [state, setState] = useState<Todo>({
@@ -29,7 +29,7 @@ function App() {
 
   const { newId, taskText, editedTaskText, tasks } = state;
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setState({
       ...state,
