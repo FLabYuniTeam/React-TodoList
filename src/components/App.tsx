@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useReducer, useRef } from 'react';
 import '../css/App.css';
 import TodoInput from './TodoInput';
 import Todolist from './TodoList';
-
-interface Todo {
-  newId: number;
+import { reducer } from '../reducer';
+export interface Todo {
   taskText: string;
   editedTaskText: string;
   tasks: Task[];
@@ -19,92 +18,46 @@ export interface Task {
 
 export type TodoStateHandler = (id: number) => void;
 
-function App() {
-  const [state, setState] = useState<Todo>({
-    newId: 1,
-    taskText: '',
-    editedTaskText: '',
-    tasks: []
-  });
+const initialState: Todo = {
+  taskText: '',
+  editedTaskText: '',
+  tasks: []
+};
 
-  const { newId, taskText, editedTaskText, tasks } = state;
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const dataId = useRef(0);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setState({
-      ...state,
-      newId: newId + 1,
-      tasks: [
-        ...tasks,
-        { id: newId, text: taskText, isCompleted: false, isEdit: false }
-      ],
-      taskText: ''
-    });
+    dispatch({ type: 'SUBMIT', id: dataId.current });
+    dataId.current += 1;
   };
 
-  const handleEditComplete = (targetId: number) => {
-    const nextState = tasks.map((task) => {
-      if (task.id === targetId) {
-        task.text = editedTaskText;
-        task.isEdit = !task.isEdit;
-      }
-      return task;
-    });
-    setState({
-      ...state,
-      tasks: nextState,
-      editedTaskText: ''
-    });
+  const handleComplete = (id: number) => {
+    dispatch({ type: 'COMPLETE', id });
+  };
+
+  const handleEdit = (id: number) => {
+    dispatch({ type: 'EDIT', id });
+  };
+
+  const handleEditComplete = (id: number) => {
+    dispatch({ type: 'EDITCOMPLETE', id });
+  };
+
+  const handleRemove = (id: number) => {
+    dispatch({ type: 'REMOVE', id });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target === null) return;
-    setState({
-      ...state,
-      taskText: (e.target as HTMLInputElement).value
-    });
+    dispatch({ type: 'INPUTCHANGE', value: e.target.value });
   };
 
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target === null) return;
-    setState({
-      ...state,
-      editedTaskText: (e.target as HTMLTextAreaElement).value
-    });
-  };
-
-  const handleComplete = (id: number) => {
-    const nextState = tasks.map((task) => {
-      if (task.id === id) {
-        task.isCompleted = !task.isCompleted;
-      }
-      return task;
-    });
-    setState({
-      ...state,
-      tasks: nextState
-    });
-  };
-
-  const handleRemove = (id: number) => {
-    const nextState = tasks.filter((task) => task.id !== id);
-    setState({
-      ...state,
-      tasks: nextState
-    });
-  };
-
-  const handleEdit = (id: number) => {
-    const nextState = tasks.map((task) => {
-      if (task.id === id) {
-        task.isEdit = !task.isEdit;
-      }
-      return task;
-    });
-    setState({
-      ...state,
-      tasks: nextState
-    });
+    dispatch({ type: 'TEXTAREACHANGE', value: e.target.value });
   };
 
   return (
@@ -113,7 +66,7 @@ function App() {
       <TodoInput
         onSubmit={handleSubmit}
         onChange={handleInputChange}
-        value={taskText}
+        value={state.taskText}
       />
       <Todolist
         onComplete={handleComplete}
@@ -121,7 +74,7 @@ function App() {
         onEdit={handleEdit}
         onChange={handleTextAreaChange}
         onEditComplete={handleEditComplete}
-        tasks={tasks}
+        tasks={state.tasks}
       />
     </div>
   );
