@@ -1,7 +1,7 @@
 import React from 'react';
-import { task } from './App';
+import { Task } from './App';
 import ListItem from './ListItem';
-import { eventHandlerFunction } from './App';
+import { TodoStateHandler } from './App';
 
 const Todolist = ({
   onComplete,
@@ -11,12 +11,12 @@ const Todolist = ({
   onEditComplete,
   tasks
 }: {
-  onComplete: eventHandlerFunction;
-  onRemove: eventHandlerFunction;
-  onEdit: eventHandlerFunction;
-  onEditComplete: eventHandlerFunction;
+  onComplete: TodoStateHandler;
+  onRemove: TodoStateHandler;
+  onEdit: TodoStateHandler;
+  onEditComplete: TodoStateHandler;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  tasks: task[];
+  tasks: Task[];
 }) => {
   return (
     <ul>
