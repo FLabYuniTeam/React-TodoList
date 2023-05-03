@@ -1,4 +1,4 @@
-import { Todo } from './components/App';
+import { Todo } from './type/todo';
 
 type Action =
   | { type: 'SUBMIT'; id: number }

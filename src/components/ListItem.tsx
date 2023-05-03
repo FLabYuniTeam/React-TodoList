@@ -1,6 +1,5 @@
 import React from 'react';
-import { Task } from './App';
-import { TodoStateHandler } from './App';
+import { Task, TodoStateHandler } from '../type/todo';
 
 const ListItem = ({
   onComplete,

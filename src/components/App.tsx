@@ -3,20 +3,7 @@ import '../css/App.css';
 import TodoInput from './TodoInput';
 import Todolist from './TodoList';
 import { reducer } from '../reducer';
-export interface Todo {
-  taskText: string;
-  editedTaskText: string;
-  tasks: Task[];
-}
-
-export interface Task {
-  id: number;
-  text: string;
-  isCompleted: boolean;
-  isEdit: boolean;
-}
-
-export type TodoStateHandler = (id: number) => void;
+import { Todo } from '../type/todo';
 
 const initialState: Todo = {
   taskText: '',
