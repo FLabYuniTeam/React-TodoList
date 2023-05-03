@@ -1,11 +1,10 @@
-import React from 'react';
-import { Task, TodoStateHandler } from '../type/todo';
+import React, { useState } from 'react';
+import { Todo, TodoStateHandler } from '../type/todo';
 
 const ListItem = ({
   onComplete,
   onEdit,
   onRemove,
-  onChange,
   onEditComplete,
   task
 }: {
@@ -13,15 +12,30 @@ const ListItem = ({
   onEdit: TodoStateHandler;
   onRemove: TodoStateHandler;
   onEditComplete: TodoStateHandler;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  task: Task;
+  task: Todo;
 }) => {
+  const [editText, setEditText] = useState('');
+
+  const changeEditText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditText(e.target.value);
+  };
+
+  const editInputText = () => {
+    onEditComplete(task.id, editText);
+    setEditText('');
+  };
+
   const CompleteButtonText = task.isCompleted ? '완료취소' : '완료';
   const listItem = task.isEdit ? (
     <>
-      <textarea onChange={onChange}></textarea>
+      <input
+        type='text'
+        value={editText}
+        onChange={changeEditText}
+        placeholder='수정할 값을 입력해 주세요.'
+      ></input>
       <button onClick={() => onComplete(task.id)}>{CompleteButtonText}</button>
-      <button onClick={() => onEditComplete(task.id)}>수정완료</button>
+      <button onClick={editInputText}>수정완료</button>
     </>
   ) : (
     <>
