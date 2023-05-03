@@ -34,12 +34,11 @@ const ListItem = ({
         onChange={changeEditText}
         placeholder='수정할 값을 입력해 주세요.'
       ></input>
-      <button onClick={() => onComplete(task.id)}>{CompleteButtonText}</button>
       <button onClick={editInputText}>수정완료</button>
     </>
   ) : (
     <>
-      {task.isCompleted ? '[완료] ' + task.text : task.text}
+      {(task.isCompleted ? '[완료] ' : '') + task.text}
       <button onClick={() => onComplete(task.id)}>{CompleteButtonText}</button>
       <button onClick={() => onEdit(task.id)}>수정</button>
     </>
