@@ -5,4 +5,4 @@ export interface Todo {
   isEdit: boolean;
 }
 
-export type TodoStateHandler = (id: number, text?: string) => void;
+export type TodoStateHandler = (id: number) => void;

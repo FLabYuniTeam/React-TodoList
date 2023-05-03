@@ -4,11 +4,11 @@ import TodoInput from './TodoInput';
 import Todolist from './TodoList';
 import { reducer } from '../reducer';
 
-function App() {
+const App = () => {
   const [state, dispatch] = useReducer(reducer, []);
   const dataId = useRef(0);
 
-  const handleSubmit = (
+  const handleSubmitButtonClick = (
     e: React.FormEvent<HTMLFormElement>,
     inputText: string
   ) => {
@@ -17,35 +17,35 @@ function App() {
     dataId.current += 1;
   };
 
-  const handleComplete = (id: number) => {
+  const handleCompleteButtonClick = (id: number) => {
     dispatch({ type: 'COMPLETE', id });
   };
 
-  const handleEdit = (id: number) => {
+  const handleEditButtonClick = (id: number) => {
     dispatch({ type: 'EDIT', id });
   };
 
-  const handleEditComplete = (id: number, editText: string) => {
+  const handleEditCompleteButtonClick = (id: number, editText: string) => {
     dispatch({ type: 'EDITCOMPLETE', id, text: editText });
   };
 
-  const handleRemove = (id: number) => {
+  const handleRemoveButtonClick = (id: number) => {
     dispatch({ type: 'REMOVE', id });
   };
 
   return (
     <div className='App'>
       <h1>To-do</h1>
-      <TodoInput onSubmit={handleSubmit} />
+      <TodoInput onSubmit={handleSubmitButtonClick} />
       <Todolist
-        onComplete={handleComplete}
-        onRemove={handleRemove}
-        onEdit={handleEdit}
-        onEditComplete={handleEditComplete}
+        onComplete={handleCompleteButtonClick}
+        onRemove={handleRemoveButtonClick}
+        onEdit={handleEditButtonClick}
+        onEditComplete={handleEditCompleteButtonClick}
         state={state}
       />
     </div>
   );
-}
+};
 
 export default App;

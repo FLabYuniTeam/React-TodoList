@@ -11,7 +11,7 @@ const ListItem = ({
   onComplete: TodoStateHandler;
   onEdit: TodoStateHandler;
   onRemove: TodoStateHandler;
-  onEditComplete: TodoStateHandler;
+  onEditComplete: (id: number, editText: string) => void;
   task: Todo;
 }) => {
   const [editText, setEditText] = useState('');
