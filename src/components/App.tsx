@@ -1,83 +1,51 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 import '../css/App.css';
 import TodoInput from './TodoInput';
 import Todolist from './TodoList';
 import { reducer } from '../reducer';
-export interface Todo {
-  taskText: string;
-  editedTaskText: string;
-  tasks: Task[];
-}
+import shortid from 'shortid';
 
-export interface Task {
-  id: number;
-  text: string;
-  isCompleted: boolean;
-  isEdit: boolean;
-}
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, []);
 
-export type TodoStateHandler = (id: number) => void;
-
-const initialState: Todo = {
-  taskText: '',
-  editedTaskText: '',
-  tasks: []
-};
-
-function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const dataId = useRef(0);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitButtonClick = (
+    e: React.FormEvent<HTMLFormElement>,
+    inputText: string
+  ) => {
     e.preventDefault();
-    dispatch({ type: 'SUBMIT', id: dataId.current });
-    dataId.current += 1;
+    const dataId = shortid.generate();
+    dispatch({ type: 'SUBMIT', id: dataId, text: inputText });
   };
 
-  const handleComplete = (id: number) => {
+  const handleCompleteButtonClick = (id: string) => {
     dispatch({ type: 'COMPLETE', id });
   };
 
-  const handleEdit = (id: number) => {
+  const handleEditButtonClick = (id: string) => {
     dispatch({ type: 'EDIT', id });
   };
 
-  const handleEditComplete = (id: number) => {
-    dispatch({ type: 'EDITCOMPLETE', id });
+  const handleEditCompleteButtonClick = (id: string, editText: string) => {
+    dispatch({ type: 'EDITCOMPLETE', id, text: editText });
   };
 
-  const handleRemove = (id: number) => {
+  const handleRemoveButtonClick = (id: string) => {
     dispatch({ type: 'REMOVE', id });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target === null) return;
-    dispatch({ type: 'INPUTCHANGE', value: e.target.value });
-  };
-
-  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target === null) return;
-    dispatch({ type: 'TEXTAREACHANGE', value: e.target.value });
   };
 
   return (
     <div className='App'>
       <h1>To-do</h1>
-      <TodoInput
-        onSubmit={handleSubmit}
-        onChange={handleInputChange}
-        value={state.taskText}
-      />
+      <TodoInput onSubmit={handleSubmitButtonClick} />
       <Todolist
-        onComplete={handleComplete}
-        onRemove={handleRemove}
-        onEdit={handleEdit}
-        onChange={handleTextAreaChange}
-        onEditComplete={handleEditComplete}
-        tasks={state.tasks}
+        onComplete={handleCompleteButtonClick}
+        onRemove={handleRemoveButtonClick}
+        onEdit={handleEditButtonClick}
+        onEditComplete={handleEditCompleteButtonClick}
+        state={state}
       />
     </div>
   );
-}
+};
 
 export default App;
