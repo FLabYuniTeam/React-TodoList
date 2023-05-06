@@ -1,11 +1,11 @@
 import { Todo } from './type/todo';
 
 type Action =
-  | { type: 'SUBMIT'; id: number; text: string }
-  | { type: 'COMPLETE'; id: number }
-  | { type: 'EDIT'; id: number }
-  | { type: 'EDITCOMPLETE'; id: number; text: string }
-  | { type: 'REMOVE'; id: number };
+  | { type: 'SUBMIT'; id: string; text: string }
+  | { type: 'COMPLETE'; id: string }
+  | { type: 'EDIT'; id: string }
+  | { type: 'EDITCOMPLETE'; id: string; text: string }
+  | { type: 'REMOVE'; id: string };
 
 export const reducer = (state: Todo[], action: Action) => {
   switch (action.type) {

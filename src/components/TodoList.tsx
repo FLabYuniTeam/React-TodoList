@@ -12,7 +12,7 @@ const Todolist = ({
   onComplete: TodoStateHandler;
   onRemove: TodoStateHandler;
   onEdit: TodoStateHandler;
-  onEditComplete: (id: number, text: string) => void;
+  onEditComplete: (id: string, text: string) => void;
   state: Todo[];
 }) => {
   return (

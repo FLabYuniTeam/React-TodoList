@@ -1,8 +1,8 @@
 export interface Todo {
-  id: number;
+  id: string;
   text: string;
   isCompleted: boolean;
   isEdit: boolean;
 }
 
-export type TodoStateHandler = (id: number) => void;
+export type TodoStateHandler = (id: string) => void;
